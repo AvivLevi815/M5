@@ -1,0 +1,28 @@
+This is a 3 part project that was used to produce my final submission for the M5 competition (Kaggle competition https://www.kaggle.com/c/m5-forecasting-accuracy).
+
+The first part is preprocess (PreProcess.ipynb)- taking as input the competition data sets and converts them into train-ready DataFrames.
+
+The input for the first notebook are "calendar.csv", "sales_train_validation.csv", "sample_submission.csv", "sell_prices.csv" that are available here: https://www.kaggle.com/c/m5-forecasting-accuracy/data
+
+The output of PreProcess.ipynb are:
+1. Label encoders: le_state.pkl & le_dept.pkl
+2. The train DataFrame: init_train.pkl
+3. 28 test files "testX.csv" where X is the index of the day being tested.
+
+The second part is feature engineering (FeatureEngineering.ipynb) that is adding some features to the train and to the test files
+based on sales from the  past, for example - for a given product+shop how many sales were last month.
+
+The last part is dealing with training and predicting the labels of the test set.
+
+In order to have a model selection as part of the training I needed a way to evaluate predictions on the last month of the training data so
+I used WRMSSEEvaluator (by Dhananjay Raut, from the notebook:https://www.kaggle.com/dhananjay3/wrmsse-evaluator-with-extra-features)
+as an evaluator for my predictions, with it the final models for the ensamble will be picked.
+I used train downsampeling to reduce overfitting, similar to dropout.
+
+After training, I trained different ensembles and check their performance, picking the most accurate one using WRMSSEEvaluator.
+
+The output file is submission.csv, to submit it to Kaggle you can go to https://www.kaggle.com/c/m5-forecasting-accuracy/submit
+and click on "late submit" or run my public notenook here: https://www.kaggle.com/avivlevi815/final-solution-726th-place
+
+
+
